@@ -1,27 +1,32 @@
-<p>Angular template driven forms</p>
-<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+<div class="center"><h1>Angular template driven forms</h1></div>
+<p>Set value in template-driven forms</p>
 <p>
+    There are two ways you can set the value of the form elements
+</p>
+
+    <ul>
+        <li>Two-way data binding</li>
+        <li>Use the template reference variable</li>
+    </ul>
+<div>
+<form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+
     <label for="firstname">First Name:</label>
     <input type="text" id="firstname" name="firstname" ngModel>
-</p>
-<p>
+
     <label for="lastname">Last Name:</label>
     <input type="text" id="lastname" name="lastname" ngModel>
-</p>
-<p>
+
     <label for="email">Email:</label>
     <input type="text" id="email" name="email" ngModel>
-</p>
-<p>
+
     <label for="gender">Gender:</label>
     <input type="radio" value="male" id="gender" name="gender" ngModel>Male
     <input type="radio" value="female" id="gender" name="gender" ngModel>Female
-</p>
-<p>
+
     <label for="isMarrried">Married:</label>
     <input type="checkbox" id="isMarried" name="isMarried" ngModel>
-</p>
-<p>
+
     <label for="country">Country:</label>
     <select name="country" id="contry" ngModel>
         <option selected="" value=""></option>
@@ -29,7 +34,7 @@
             {{c.name}}
         </option>
     </select>
-</p>
+
 <div ngModelGroup="address">
  
     <p>
@@ -49,10 +54,12 @@
 </div>
 
 <p>
-    <button type="submit">submit</button>
+    <!-- <button type="submit">submit</button> -->
+    <input type="submit" value="Submit">
 </p>
 <pre>Value: {{contactForm.value | json }}</pre>
 <pre>Valid: {{contactForm.valid }}</pre>
 <pre>Touched: {{contactForm.touched }}</pre>
 <pre>Submitted: {{contactForm.submitted }}</pre>
 </form>
+</div>
