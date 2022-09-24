@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subscriber } from 'rxjs';
+import { Observable, fromEvent, of, Subscriber, from } from 'rxjs';
 import { ajax } from "rxjs/ajax";
 
 @Component({
@@ -8,12 +8,14 @@ import { ajax } from "rxjs/ajax";
   styleUrls: ['./rx-jsexample.component.css']
 })
 export class RxJSExampleComponent implements OnInit {
-  
+  triggerButton: Element | null | undefined;
+
   constructor() { }
 
   ngOnInit(): void {
    //this.coldObservable();
-    this.creationFunctions();
+   // this.creationFunctions();
+   this.fromFunctions();
   }
 
   coldObservable() {
@@ -61,5 +63,32 @@ export class RxJSExampleComponent implements OnInit {
 
     })
   }
+
+  fromFunctions() {
+    const somePromise = new Promise((resolve, reject) => {
+      //resolve('Resolved');
+      reject('Rejected!');
+
+    });
+
+    const onservableFromPromise$ = from(somePromise);
+    onservableFromPromise$.subscribe({
+      next: value => console.log(value),
+      error: err => console.log('Error:', err),
+      complete: () => console.log('Completed')
+    });
+
+  }
+
+  checkFromEvent() {
+     this.triggerButton = document.querySelector('button#trigger');
+    
+    //  fromEvent<MouseEvent>(this.triggerButton, 'click').subscribe(
+    //   event => console.log(event.type, event.x, event.y)
+    // );
+    
+
+  }
+ 
 
 }
