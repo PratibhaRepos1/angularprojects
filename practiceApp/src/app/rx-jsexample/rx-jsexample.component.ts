@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of, Subscriber } from 'rxjs';
 import { ajax } from "rxjs/ajax";
 
 @Component({
@@ -32,7 +32,34 @@ export class RxJSExampleComponent implements OnInit {
   }
 
   creationFunctions() {
-    of('Alice', 'Ben', 'Charlie').subscribe(value => console.log(value));
+    this.ourOwnOf('Alice', 'Ben', 'Charlie').subscribe({
+      next: value => console.log(value),
+      complete: () => console.log('Complete')
+    });
+
+    // Another way to write code
+    // const names$ =new Observable<string>(subscriber => {
+    //   subscriber.next('Alice');
+    //   subscriber.next('Ben');
+    //   subscriber.next('Charlie');
+    //   subscriber.complete()
+    // });
+    // names$.subscribe({
+    //   next: value => console.log(value),
+    //   complete: () => console.log('Completed')
+
+    // });
+
+
+  }
+  ourOwnOf(...args:string[]): Observable<string> {
+    return new Observable<string>(subscriber => {
+      for(let i=0; i< args.length; i++) {
+        subscriber.next(args[i]);
+      }
+      subscriber.complete();
+
+    })
   }
 
 }
